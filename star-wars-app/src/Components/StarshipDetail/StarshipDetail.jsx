@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
-import styled from '@emotion/styled';
-
-const Container = styled.div`
-  padding: 20px;
-`;
+import './StarshipDetail.css';
 
 const StarshipDetail = () => {
     const { id } = useParams();
@@ -23,7 +19,8 @@ const StarshipDetail = () => {
     if (!starship) return <div>Loading...</div>;
 
     return (
-        <Container>
+        <div className="container">
+            <div className="card">
             <h1>{starship.name}</h1>
             <p>Model: {starship.model}</p>
             <p>Passengers: {starship.passengers}</p>
@@ -31,8 +28,9 @@ const StarshipDetail = () => {
             <p>Manufacturer: {starship.manufacturer}</p>
             <p>Crew: {starship.crew}</p>
             <p>Cargo Capacity: {starship.cargo_capacity}</p>
-            <Link to="/">Back to Home</Link>
-        </Container>
+            </div>
+            <Link to="/" className="back-button">Back to Home</Link>
+        </div>
     );
 };
 

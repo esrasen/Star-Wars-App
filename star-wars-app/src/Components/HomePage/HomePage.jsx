@@ -1,37 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import styled from '@emotion/styled';
-
-const Container = styled.div`
-  padding: 20px;
-`;
-
-const SearchBar = styled.input`
-  margin-bottom: 20px;
-  padding: 10px;
-  width: 100%;
-  font-size: 16px;
-`;
-
-const StarshipList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-`;
-
-const StarshipCard = styled.div`
-  border: 1px solid #ccc;
-  padding: 20px;
-  width: calc(33.333% - 20px);
-  box-sizing: border-box;
-`;
-
-const LoadMoreButton = styled.button`
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 16px;
-`;
+import './HomePage.css';
 
 const HomePage = () => {
     const [starships, setStarships] = useState([]);
@@ -59,28 +29,32 @@ const HomePage = () => {
     };
 
     return (
-        <Container>
-            <h1>Star Wars Starships</h1>
-            <SearchBar
+        <div className="container">
+            <h1>Star Wars</h1>
+            <input
                 type="text"
                 placeholder="Search by name or model"
                 value={searchTerm}
                 onChange={handleSearch}
+                className="search-bar"
             />
-            <StarshipList>
+            <hr/>
+            <div className="starship-list">
                 {starships.map(starship => (
-                    <StarshipCard key={starship.url}>
+                    <div key={starship.url} className="starship-card">
                         <h3>{starship.name}</h3>
                         <p>Model: {starship.model}</p>
                         <p>Max Speed: {starship.max_atmosphering_speed}</p>
                         <Link to={`/starship/${starship.url.match(/(\d+)/)[0]}`}>Details</Link>
-                    </StarshipCard>
+                    </div>
                 ))}
-            </StarshipList>
+            </div>
             {searchTerm === '' && (
-                <LoadMoreButton onClick={() => setPage(prevPage => prevPage + 1)}>Load More</LoadMoreButton>
+                <button onClick={() => setPage(prevPage => prevPage + 1)} className="load-more-button">
+                    Load More
+                </button>
             )}
-        </Container>
+        </div>
     );
 };
 
